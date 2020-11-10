@@ -1,0 +1,16 @@
+{
+	"name": "vuepress",
+	"version": "1.0.0",
+	"description": "前端工作档案",
+	"scripts": {
+		"dev": "vuepress dev docs",
+		"build": "vuepress build docs"
+	},
+	"main": "index.js",
+	"repository": "git@github.com:wanglujiu/wanglujiu.github.io.git",
+	"author": "lujiu",
+	"license": "MIT",
+	"devDependencies": {
+		"vuepress": "^1.7.1"
+	}
+}
