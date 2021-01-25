@@ -12,5 +12,5 @@ features:
   details: 累就对了，舒服是留给有钱人的；打工人打工魂打工都是人上人
 - title: 作者语录
   details: 持续学习，拥抱变化，永远相信美好的事情正在发生
-footer: MIT Licensed | Copyright © 2020-present sanlujiu
+footer: MIT Licensed | Copyright © 2018-present wanglujiu
 ---

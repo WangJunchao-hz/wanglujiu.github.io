@@ -5,14 +5,34 @@ module.exports = {
 	themeConfig: {
 		logo: '/assets/images/front.jpg',
 		nav: [
-			{ text: '首页', link: '/guide' },
-			{ text: '基础', link: '/basics/' },
-			{ text: '框架', link: '/frame/' },
+			{ text: '指南', link: '/guide' },
+			{
+				text: '笔记',
+				ariaLabel: '笔记',
+				items: [
+					{
+						text: 'Html',
+						link: '/notes/Html/',
+					},
+					{
+						text: 'Css',
+						link: '/notes/Css/',
+					},
+					{
+						text: 'JavaScript',
+						link: '/notes/JavaScript/contextStack',
+					},
+				],
+			},
 			{ text: '面试题', link: '/interview/' },
 			{
 				text: '专题',
 				ariaLabel: '专题',
 				items: [
+					{
+						text: 'Javascript高级程序设计（第4版）',
+						link: '/specialColumn/jsgjcxsj4/',
+					},
 					{
 						text: '设计模式和最佳实践',
 						link: '',
@@ -20,7 +40,11 @@ module.exports = {
 				],
 			},
 			{ text: '更多', link: '/more/cmder' },
-			{ text: 'github', link: 'https://google.com' },
+			{
+				text: 'github',
+				link:
+					'https://github.com/wanglujiu/wanglujiu.github.io/tree/gh-pages',
+			},
 		],
 		sidebar: {
 			'/more/': [
@@ -31,8 +55,28 @@ module.exports = {
 					children: ['cmder', 'nvm', 'nrm', 'vscode'],
 				},
 			],
+			'/notes/': [
+				{
+					title: 'Html',
+					collapsable: false,
+					sidebarDepth: 2,
+					children: [],
+				},
+				{
+					title: 'Css',
+					collapsable: false,
+					sidebarDepth: 2,
+					children: [],
+				},
+				{
+					title: 'JavaScript',
+					collapsable: false,
+					sidebarDepth: 2,
+					children: ['JavaScript/contextStack'],
+				},
+			],
 		},
 		lastUpdated: 'Last Updated',
 		smoothScroll: true,
 	},
-};
+}
