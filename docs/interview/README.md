@@ -10,11 +10,346 @@ sidebarDepth: 2
 
 ## 项目问答
 
+- 项目的背景是什么；
+- 当前项目的目的是什么；
+- 在开发过程中，你的角色是什么；
+- 在开发过程中有遇到过什么样的难题；
+- 遇到这些问题，你都是如何进行解决的；
+- 项目完成之后，取得了哪些成果；
+
 ## 技术面
 
-## Html
+## Html5
+
+### 1.`WEB`标准以及`W3C`标准是什么?
+
+- 标签闭合、标签小写、不乱嵌套、使用外链`css`和`js`、结构行为表现的分离
+
+### 2.`Doctype`作用? 严格模式与混杂模式如何区分？它们有何意义?
+
+- 页面被加载的时，`link`会同时被加载，而`@imort`页面被加载的时，`link`会同时被加载，而`@import`引用的`CSS`会等到页面被加载完再加载 `import`只在`IE5`以上才能识别，而`link`是`XHTML`标签，无兼容问题 `link`方式的样式的权重 高于`@import`的权重
+- `<!DOCTYPE>` 声明位于文档中的最前面，处于 `<html>` 标签之前。告知浏览器的解析器， 用什么文档类型 规范来解析这个文档
+- 严格模式的排版和 `JS` 运作模式是 以该浏览器支持的最高标准运行
+- 在混杂模式中，页面以宽松的向后兼容的方式显示。模拟老式浏览器的行为以防止站点无法工作。 `DOCTYPE`不存在或格式不正确会导致文档以混杂模式呈现
+
+#### 2.1 `HTML5` 为什么只需要写 `<!DOCTYPE HTML>`?
+
+- `HTML5` 不基于 `SGML`，因此不需要对`DTD`进行引用，但是需要`doctype`来规范浏览器的行为
+- 而`HTML4.01`基于`SGML`,所以需要对`DTD`进行引用，才能告知浏览器文档所使用的文档类型
+
+### 3. `html`头部`meta`相关
+
+``` html
+<!--H5标准声明，使用 HTML5 doctype，不区分大小写-->
+<!DOCTYPE html>
+<!--标准的 lang 属性写法-->
+<head lang=”en”>
+<!--声明文档使用的字符编码-->
+<meta charset=’utf-8′>
+<!--优先使用 IE 最新版本和 Chrome-->
+<meta http-equiv=”X-UA-Compatible” content=”IE=edge,chrome=1″/>
+<!--页面描述-->
+<meta name=”description” content=”不超过150个字符”/>
+<!-- 页面关键词-->
+<meta name=”keywords” content=””/>
+<!--网页作者-->
+<meta name=”author” content=”name, email@gmail.com”/>
+<!--搜索引擎抓取-->
+<meta name=”robots” content=”index,follow”/>
+<!--为移动设备添加 viewport-->
+<meta name=”viewport” content=”initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no”>
+<!--iOS 设备 begin-->
+<!--添加到主屏后的标题（iOS 6 新增）-->
+<meta name=”apple-mobile-web-app-title” content=”标题”>
+<!--是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏-->
+<meta name=”apple-mobile-web-app-capable” content=”yes”/>
+<!--添加智能 App 广告条 Smart App Banner（iOS 6+ Safari）-->
+<meta name=”apple-itunes-app” content=”app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL”>
+<!--设置苹果工具栏颜色-->
+<meta name=”apple-mobile-web-app-status-bar-style” content=”black”/>
+<!--忽略自动识别数字为电话号码、邮箱号-->
+<meta name=”format-detection” content=”telphone=no, email=no”/>
+<!-- 启用浏览器的极速模式(webkit)-->
+<meta name=”renderer” content=”webkit”>
+<!--避免IE使用兼容模式-->
+<meta http-equiv=”X-UA-Compatible” content=”IE=edge”>
+<!--不让百度转码-->
+<meta http-equiv=”Cache-Control” content=”no-siteapp” />
+<!--针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓-->
+<meta name=”HandheldFriendly” content=”true”>
+<!--微软的老式浏览器-->
+<meta name=”MobileOptimized” content=”320″>
+<!--uc强制竖屏-->
+<meta name=”screen-orientation” content=”portrait”>
+<!--QQ强制竖屏-->
+<meta name=”x5-orientation” content=”portrait”>
+<!--UC强制全屏-->
+<meta name=”full-screen” content=”yes”>
+<!--QQ强制全屏-->              
+<meta name=”x5-fullscreen” content=”true”>     
+<!--UC应用模式-->  
+<meta name=”browsermode” content=”application”>
+<!-- QQ应用模式-->
+<meta name=”x5-page-mode” content=”app”>
+<!--windows phone 点击无高亮-->
+<meta name=”msapplication-tap-highlight” content=”no”>
+<!--设置页面不缓存--> 
+<meta http-equiv=”pragma” content=”no-cache”>
+<meta http-equiv=”cache-control” content=”no-cache”>
+<meta http-equiv=”expires” content=”0″>
+```
+
+#### 3.1 `viewport`
+
+```html
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  // width    设置viewport宽度，为一个正整数，或字符串‘device-width’
+  // device-width  设备宽度
+  // height   设置viewport高度，一般设置了宽度，会自动解析出高度，可以不用设置
+  // initial-scale    默认缩放比例（初始缩放比例），为一个数字，可以带小数
+  // minimum-scale    允许用户最小缩放比例，为一个数字，可以带小数
+  // maximum-scale    允许用户最大缩放比例，为一个数字，可以带小数
+  // user-scalable    是否允许手动缩放
+```
+
+怎样处理 移动端 1px 被 渲染成 2px问题?
+
+- 局部处理
+  - meta标签中的 viewport属性 ，initial-scale 设置为 1
+  - rem按照设计稿标准走，外加利用transfrome 的scale(0.5) 缩小一倍即可；
+- 全局处理
+  - mate标签中的 viewport属性 ，initial-scale 设置为 0.5
+  - rem 按照设计稿标准走即可
+
+### 4.`html5`有哪些新特性、移除了那些元素？
+
+- `HTML5` 现在已经不是 `SGML` 的子集，主要是关于图像，位置，存储，多任务等功能的增加
+  - 新增选择器 `document.querySelector`、`document.querySelectorAll`
+  - 拖拽释放`(Drag and drop) API`
+  - 媒体播放的 `video` 和 `audio`
+  - 本地存储 `localStorage` 和 `sessionStorage`
+  - 离线应用 `manifest`
+  - 桌面通知 `Notifications`
+  - 语意化标签 `article、footer、header、nav、section`
+  - 增强表单控件 `calendar、date、time、email、url、search`
+  - 地理位置 `Geolocation`
+  - 多任务 `webworker`
+  - 全双工通信协议 `websocket`
+  - 历史管理 `history`
+  - 跨域资源共享`(CORS) Access-Control-Allow-Origin`
+  - 页面可见性改变事件 `visibilitychange`
+  - 跨窗口通信 `PostMessage`
+  - `Form Data` 对象
+  - 绘画 `canvas`
+- 移除的元素：
+  - 纯表现的元素：`basefont、big、center、font、 s、strike、tt、u`
+  - 对可用性产生负面影响的元素：`frame、frameset、noframes`
+- 支持`HTML5`新标签：
+  - `IE8/IE7/IE6`支持通过`document.createElement`方法产生的标签
+  - 可以利用这一特性让这些浏览器支持`HTML5`新标签
+  - 浏览器支持新标签后，还需要添加标签默认的样式
+  - 当然也可以直接使用成熟的框架、比如`html5shim`
+- 如何区分 `HTML` 和 `HTML5`
+  - `DOCTYPE`声明、新增的结构元素、功能元素
+
+### 5.谈谈对语义化的理解
+
+- 用正确的标签做正确的事情！
+- `HTML`语义化就是让页面的内容结构化，便于对浏览器、搜索引擎解析；
+- 在没有样式`CSS`情况下也以一种文档格式显示，并且是容易阅读的。
+- 搜索引擎的爬虫依赖于标记来确定上下文和各个关键字的权重，利于 `SEO`。
+- 使阅读源代码的人对网站更容易将网站分块，便于阅读维护理解
+
+``` js
+CACHE MANIFEST
+#v0.11
+CACHE:
+js/app.js
+css/style.css
+NETWORK:
+resourse/logo.png
+FALLBACK:
+/offline.html
+```
+
+- 浏览器是怎么对`HTML5`的离线储存资源进行管理和加载的呢？
+  - 在线的情况下，浏览器发现`html`头部有`manifest`属性，它会请求`manifest`文件，如果是第一次访问`app`，那么浏览器就会根据`manifest`文件的内容下载相应的资源并且进行离线存储。如果已经访问过`app`并且资源已经离线存储了，那么浏览器就会使用离线的资源加载页面，然后浏览器会对比新的`manifest`文件与旧的`manifest`文件，如果文件没有发生改变，就不做任何操作，如果文件改变了，那么就会重新下载文件中的资源并进行离线存储。
+  - 离线的情况下，浏览器就直接使用离线存储的资源。
 
 ## Css
+
+### 1.盒模型
+
+- 基本概念：所有 `HTML` 元素都可以视为一个盒子，该盒子包括：`边距(margin)`、`边框(border)`、`填充(padding)`和`实际内容(content)`
+- 标准模型（`W3C模型`） 和 `IE` 模型
+  - 差异：宽高计算方式不同
+  - 标准模型：计算元素的宽高只算 `content` 的宽高
+  - IE模型：计算元素的宽高包含 `content` 、`padding`、`border`
+- 如何设置两种模型?
+
+``` css
+div {
+  // 设置标准模型(默认值)
+  box-sizing: content-box;
+  // 设置IE模型
+  box-sizing: border-box;
+}
+```
+
+- `JS` 如何设置盒模型的宽高?
+
+``` js
+// 假设已经获取节点 dom
+// 只能获取内联样式设置的宽高
+dom.style.width/height
+// 获取渲染后即时运行的宽高，只支持IE
+dom.currentStyle.width/height
+// 获取渲染后即时运行的宽高，兼容性很好
+dom.getComputedStyle.width/height
+// 获取渲染后即时运行的宽高，兼容性很好，一般用来获取元素的绝对位置
+dom.getBoundingClientRect().width/height
+```
+
+### 2.浮动与清除浮动
+
+- `float`特性
+  - 浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对其进行环绕；
+  - 不管一个元素是行内元素还是块级元素，只要被设置了浮动，那浮动元素就会形成一个块级框，可以设置它的宽度和高度，因此浮动元素常常用于制作横向配列的菜单，可以设置大小并且横向排列。
+- 父元素高度塌陷问题：一个块级元素如果没有设置高度，其高度是由子元素撑开的。如果对子元素设置了浮动，那么子元素就会脱离文档流，也就是说父元素没有内容可以撑开其高度，这样父级元素的高度就会被忽略，这就是所谓的高度塌陷。
+- 清除浮动的方法
+  - 给父元素定义高度（优点：操作简单；缺点：高度定死）
+  - 添加一个空元素 `<div class="clear"></div> (.clear { clear: both })`（优点：浏览器支持好；缺点：凭空多出很多无用空节点）
+  - 父元素设置 `overflow: hidden auto`（缺点：无法显示溢出的元素）
+  - 父元素伪元素设置清除浮动
+
+``` css
+.father {
+  ...
+}
+.father:: after {
+  content: ' ';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+```
+
+### 3.水平垂直居中
+
+- 知道宽高
+
+``` css
+  .outer {...}
+  /* 
+  * absolute + 负margin
+  * 优点：兼容性好,易于理解
+  * 缺点：需要知道子元素的宽高
+  */
+  .inner {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    ...
+  }
+  /* 
+  * absolute + auto margin
+  * 优点：兼容性好,易于理解
+  * 缺点：需要知道子元素的宽高
+  */
+  .inner {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    ...
+  }
+  /* 
+  * absolute + calc
+  * 优点：易于理解
+  * 缺点：兼容性依赖于 calc，只支持 IE9及以上,需要知道子元素的宽高
+  */
+  .inner {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: calc(50% - 100px);
+    right: calc(50% - 100px);
+    ...
+  }
+```
+
+- 不知道宽高
+
+``` css
+  .outer { ... }
+  /* 
+  * absolute + transform
+  * 优点：易于理解,实现简单,无需知道子元素宽高
+  * 缺点：兼容性依赖于 transform，只支持 IE9 及以上
+  */
+  .inner {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    ...
+  }
+  /* 
+  * table
+  * 优点：兼容性好,易于实现,不需要知道子元素宽高,可读性强
+  */
+  .outer {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    ...
+  }
+  .inner { ... }
+  /* 
+  * flex
+  * 优点：实现简单
+  * 缺点：兼容性依赖于 flex
+  */
+  .outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ...
+  }
+  .inner { ... }
+  /* 
+  * grid
+  * 优点：实现简单
+  * 缺点：兼容性依赖于 grid
+  */
+  /*父元素指定子元素对齐方式*/
+  .outer {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    ...
+  }
+  .inner { ... }
+  /*子元素自己指定对齐方式*/
+  .outer {
+    display: grid;
+    ...
+  }
+  .inner {
+    align-self: center;
+    justify-self: center;
+    ...
+  }
+```
 
 ## JavaScript
 
@@ -378,8 +713,114 @@ console.log(window.age); // undefined
 */
 ```
 
+- 条件声明：在使用 `var` 声明变量时，由于声明会被提升，`JavaScript` 引擎会自动将多余的声明在作用域顶部合并为一个声明。因为 `let` 的作用域是块，所以不可能检查前面是否已经使用 `let` 声明过同名变量，同时也就不可能在没有声明的情况下去声明它。
+
+```js
+<script>
+ var name = 'Nicholas';
+ let age = 26;
+</script>
+
+<script>
+// 假设脚本不确定页面中是否已经声明了同名变量
+// 那它可以假设还没有声明过
+var name = 'Matt';
+// 这里没问题，因为可以被作为一个提升声明来处理
+// 不需要检查之前是否声明过同名变量
+
+let age = 36;
+// 如果 age 之前声明过，这里会报错 
+</script>
+
+// 使用 try/catch 语句或 typeof 操作符也不能解决，因为条件块中 let 声明的作用域仅限于该块。
+<script>
+  if(typeof name === 'undefined'){
+    var name;
+  }
+  // name 会被提升到函数作用域顶部
+  // 所以这个赋值是有效的
+  name = 'Matt';
+
+ if (typeof name === 'undefined') {
+  let name;
+ }
+ // name 被限制在 if {} 块的作用域内
+ // 因此这个赋值形同全局赋值
+ name = 'Matt';
+ try {
+  console.log(age); // 如果 age 没有声明过，则会报错
+ }
+ catch(error) {
+  let age;
+ }
+ // age 被限制在 catch {}块的作用域内
+ // 因此这个赋值形同全局赋值
+ age = 26;
+</script>
+// 为此，对于 let 这个新的 ES6 声明关键字，不能依赖条件声明模式。
+```
+
+- `for` 循环中的 `let` 声明：
+
+``` js
+// let 出现之前，for 循环定义的迭代变量会渗透到循环体外部：
+for (var i = 0; i < 5; ++i) {
+ // 循环逻辑
+}
+console.log(i); // 5
+// 改成使用 let 之后，这个问题就消失了，因为迭代变量的作用域仅限于 for 循环块内部：
+for (let i = 0; i < 5; ++i) {
+ // 循环逻辑
+}
+console.log(i); // ReferenceError: i 没有定义
+// 在使用 var 的时候，最常见的问题就是对迭代变量的奇特声明和修改：
+for (var i = 0; i < 5; ++i) {
+ setTimeout(() => console.log(i), 0)
+}
+// 你可能以为会输出 0、1、2、3、4
+// 实际上会输出 5、5、5、5、5
+// 之所以会这样，是因为在退出循环时，迭代变量保存的是导致循环退出的值：5。
+// 在之后执行超时逻辑时，所有的 i 都是同一个变量，因而输出的都是同一个最终值。
+// 而在使用 let 声明迭代变量时，JavaScript 引擎在后台会为每个迭代循环声明一个新的迭代变量。
+// 每个 setTimeout 引用的都是不同的变量实例，所以 console.log 输出的是我们期望的值，也就是循
+// 环执行过程中每个迭代变量的值。
+for (let i = 0; i < 5; ++i) {
+ setTimeout(() => console.log(i), 0)
+}
+// 会输出 0、1、2、3、4
+// 这种每次迭代声明一个独立变量实例的行为适用于所有风格的 for 循环，包括 for-in 和 for-of循环。
+```
+
+#### 4.3 const 声明
+
+`const` 的行为与 `let` 基本相同，唯一一个重要的区别是用它声明变量时必须同时初始化变量，且
+尝试修改 `const` 声明的变量会导致运行时错误。
+
+``` js
+const age = 26;
+age = 36; // TypeError: 给常量赋值
+// const 也不允许重复声明
+const name = 'Matt';
+const name = 'Nicholas'; // SyntaxError
+// const 声明的作用域也是块
+const name = 'Matt';
+if (true) {
+ const name = 'Nicholas';
+}
+console.log(name); // Matt
+// const 声明的限制只适用于它指向的变量的引用。换句话说，如果 const 变量引用的是一个对象，
+// 那么修改这个对象内部的属性并不违反 const 的限制。
+const person = {};
+person.name = 'Matt'; // ok
+```
+
 ::: tip 注意
  在严格模式下，不能定义名为 `eval` 和 `arguments` 的变量，否则会导致语法错误。
+:::
+::: tip 声明风格及最佳实践
+
+1. 不使用 `var`，限制自己只使用 `let` 和 `const` 有助于提升代码质量，因为变量有了明确的作用域、声明位置，以及不变的值。
+2. `const` 优先，`let` 次之；使用 `const` 声明可以让浏览器运行时强制保持变量不变，也可以让静态代码分析工具提前发现不合法的赋值操作。因此，应该优先使用 `const` 来声明变量，只在提前知道未来会有修改时，再使用 `let`。这样可以让开发者更有信心地推断某些变量的值永远不会变，同时也能迅速发现因意外赋值导致的非预期行为。
 :::
 
 ## 框架
