@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JavaScript之执行上下文栈 | 前端打工档案</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="JavaScript之执行上下文栈">
+    <meta name="keywords" content="Javascript,执行上下文栈">
+    
+    <link rel="preload" href="/assets/css/0.styles.01c1b0ce.css" as="style"><link rel="preload" href="/assets/js/app.066e837c.js" as="script"><link rel="preload" href="/assets/js/2.1dd62791.js" as="script"><link rel="preload" href="/assets/js/15.13ff4b4e.js" as="script"><link rel="prefetch" href="/assets/js/10.1296dbe8.js"><link rel="prefetch" href="/assets/js/11.95e1e6d3.js"><link rel="prefetch" href="/assets/js/12.0f3246a4.js"><link rel="prefetch" href="/assets/js/13.c4baf1b7.js"><link rel="prefetch" href="/assets/js/14.ef9b4cb7.js"><link rel="prefetch" href="/assets/js/16.4be76a2e.js"><link rel="prefetch" href="/assets/js/17.b0a2e91b.js"><link rel="prefetch" href="/assets/js/3.5f12890e.js"><link rel="prefetch" href="/assets/js/4.1a33d7ef.js"><link rel="prefetch" href="/assets/js/5.d555f8d0.js"><link rel="prefetch" href="/assets/js/6.73c063ed.js"><link rel="prefetch" href="/assets/js/7.54289b88.js"><link rel="prefetch" href="/assets/js/8.e34d78aa.js"><link rel="prefetch" href="/assets/js/9.16dccdc8.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.01c1b0ce.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/assets/images/front.jpg" alt="前端打工档案" class="logo"> <span class="site-name can-hide">前端打工档案</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide.html" class="nav-link">
+  指南
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="笔记" class="dropdown-title"><span class="title">笔记</span> <span class="arrow down"></span></button> <button type="button" aria-label="笔记" class="mobile-dropdown-title"><span class="title">笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/Html/" class="nav-link">
+  Html
+</a></li><li class="dropdown-item"><!----> <a href="/notes/Css/" class="nav-link">
+  Css
+</a></li><li class="dropdown-item"><!----> <a href="/notes/JavaScript/contextStack.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  JavaScript
+</a></li></ul></div></div><div class="nav-item"><a href="/interview/" class="nav-link">
+  面试题
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="专题" class="dropdown-title"><span class="title">专题</span> <span class="arrow down"></span></button> <button type="button" aria-label="专题" class="mobile-dropdown-title"><span class="title">专题</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/specialColumn/jsgjcxsj4/" class="nav-link">
+  Javascript高级程序设计（第4版）
+</a></li><li class="dropdown-item"><!----> <a href="/notes/JavaScript/.html" class="nav-link">
+  设计模式和最佳实践
+</a></li></ul></div></div><div class="nav-item"><a href="/more/cmder.html" class="nav-link">
+  更多
+</a></div><div class="nav-item"><a href="https://github.com/wanglujiu/wanglujiu.github.io/tree/gh-pages" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide.html" class="nav-link">
+  指南
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="笔记" class="dropdown-title"><span class="title">笔记</span> <span class="arrow down"></span></button> <button type="button" aria-label="笔记" class="mobile-dropdown-title"><span class="title">笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/Html/" class="nav-link">
+  Html
+</a></li><li class="dropdown-item"><!----> <a href="/notes/Css/" class="nav-link">
+  Css
+</a></li><li class="dropdown-item"><!----> <a href="/notes/JavaScript/contextStack.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  JavaScript
+</a></li></ul></div></div><div class="nav-item"><a href="/interview/" class="nav-link">
+  面试题
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="专题" class="dropdown-title"><span class="title">专题</span> <span class="arrow down"></span></button> <button type="button" aria-label="专题" class="mobile-dropdown-title"><span class="title">专题</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/specialColumn/jsgjcxsj4/" class="nav-link">
+  Javascript高级程序设计（第4版）
+</a></li><li class="dropdown-item"><!----> <a href="/notes/JavaScript/.html" class="nav-link">
+  设计模式和最佳实践
+</a></li></ul></div></div><div class="nav-item"><a href="/more/cmder.html" class="nav-link">
+  更多
+</a></div><div class="nav-item"><a href="https://github.com/wanglujiu/wanglujiu.github.io/tree/gh-pages" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Html</span> <!----></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Css</span> <!----></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>JavaScript</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/notes/JavaScript/contextStack.html" aria-current="page" class="active sidebar-link">JavaScript之执行上下文栈</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/notes/JavaScript/contextStack.html#javascript代码是顺序执行的吗" class="sidebar-link">JavaScript代码是顺序执行的吗</a></li><li class="sidebar-sub-header"><a href="/notes/JavaScript/contextStack.html#可执行代码" class="sidebar-link">可执行代码</a></li><li class="sidebar-sub-header"><a href="/notes/JavaScript/contextStack.html#执行上下文栈" class="sidebar-link">执行上下文栈</a></li><li class="sidebar-sub-header"><a href="/notes/JavaScript/contextStack.html#解答思考题" class="sidebar-link">解答思考题</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="javascript之执行上下文栈"><a href="#javascript之执行上下文栈" class="header-anchor">#</a> JavaScript之执行上下文栈</h1> <h2 id="javascript代码是顺序执行的吗"><a href="#javascript代码是顺序执行的吗" class="header-anchor">#</a> JavaScript代码是顺序执行的吗</h2> <p>我们在写<code>JavaScript</code>的时候都会有个直观的印象，那就是顺序执行，毕竟：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> <span class="token function-variable function">foo</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'foo1'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// foo1</span>
+<span class="token keyword">var</span> <span class="token function-variable function">foo</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'foo2'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// foo2</span>
+</code></pre></div><p>然而去看这段代码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'foo1'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// foo2</span>
+<span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'foo2'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// foo2</span>
+</code></pre></div><p>打印的结果却是两个<code>foo2</code></p> <p>刷过面试题的都知道这是因为<code>JavaScript</code>引擎并非一行一行地分析和执行程序，而是一段一段地分析执行，当执行一段代码的时候，会进行一个“准备工作”，比如第一个例子中的变量提升，和第二个例子中的函数提升。</p> <p>大家思考一下：这个“一段一段”中的“段”究竟是怎样划分的呢？<code>JavaScript</code>引擎遇到一段怎样的代码时才会做“准备工作”呢？</p> <h2 id="可执行代码"><a href="#可执行代码" class="header-anchor">#</a> 可执行代码</h2> <p>这就要说到<code>JavaScript</code>的可执行代码(executable code)的类型有哪些了？</p> <p>其实很简单，就三种，全局代码、函数代码、eval代码</p> <p>举个例子，当执行到一个函数的时候，就会进行准备工作，这里的“准备工作”，让我们用个更专业一点的说法，就叫做“执行上下文(execution context)”</p> <h2 id="执行上下文栈"><a href="#执行上下文栈" class="header-anchor">#</a> 执行上下文栈</h2> <p>但是，我们写的函数有很多，如何去管理和创建这么多的执行上下文呢？</p> <p>所以<code>JavaScript</code>引擎创建了执行上下文栈(Execution context stack, ECS)来管理执行上下文</p> <p>我们可以来模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p> <div class="language-js extra-class"><pre class="language-js"><code>ECStack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+</code></pre></div><p>试想当<code>JavaScript</code>开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用<code>globalContext</code>表示它，并且只有当整个应用程序结束的时候，<code>ECStack</code>才会被清空，所以程序结束之前，<code>ECStack</code>最底部永远有个<code>globalContext</code>：</p> <div class="language-js extra-class"><pre class="language-js"><code>ECStack <span class="token operator">=</span> <span class="token punctuation">[</span>
+    globalContext
+<span class="token punctuation">]</span>
+</code></pre></div><p>现在<code>Javascript</code>遇到下面的这段代码了：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">fun3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'fun3'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">fun2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">fun3</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">fun1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">fun2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">fun1</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><p>当执行一个函数的时候，就会创建一个执行上下文，并且压入执行上下文栈，当函数执行完毕的时候，就会将函数的执行上下文从栈中弹出。知道了这样的工作原理，让我们来看看如何处理上面的这段代码：</p> <div class="language-js extra-class"><pre class="language-js"><code> <span class="token comment">// 伪代码</span>
+
+ <span class="token comment">// fun1</span>
+ ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>fun1<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+
+ <span class="token comment">// fun1中调用了fun2，还要创建fun2的执行上下文</span>
+ ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>fun2<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+
+ <span class="token comment">// fun2调用了fun3</span>
+ ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>fun3<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+
+ <span class="token comment">// fun3执行完毕</span>
+ ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// fun2执行完毕</span>
+ ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// fun1执行完毕</span>
+ ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// javascript接着执行下面的代码，但是ECStack底层永远有个globalContext</span>
+</code></pre></div><h2 id="解答思考题"><a href="#解答思考题" class="header-anchor">#</a> 解答思考题</h2> <p>现在我们已经了解了执行上下文栈是如何处理执行上下文的，所以让我们看看上篇文章《JavaScript之词法作用域&amp;动态作用域》最后的问题：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> scope <span class="token operator">=</span> <span class="token string">'global scope'</span>
+<span class="token keyword">function</span> <span class="token function">checkscope</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> scope <span class="token operator">=</span> <span class="token string">'local scope'</span>
+    <span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> scope
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">checkscope</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> scope <span class="token operator">=</span> <span class="token string">'global scope'</span>
+<span class="token keyword">function</span> <span class="token function">checkscope</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> scope <span class="token operator">=</span> <span class="token string">'local scope'</span>
+    <span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> scope
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> f
+<span class="token punctuation">}</span>
+<span class="token function">checkscope</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><p>两段代码执行的结果一样，但是两段代码究竟有哪些不同呢？</p> <p>答案就是执行上下文栈的变化不一样</p> <p>让我们模拟第一段代码：</p> <div class="language-js extra-class"><pre class="language-js"><code>ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>checkscope<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>f<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><p>让我们模拟第二段代码：</p> <div class="language-js extra-class"><pre class="language-js"><code>ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>checkscope<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ECStack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>f<span class="token operator">&gt;</span> functionContext<span class="token punctuation">)</span>
+ECStack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><p>是不是有些不同呢？</p> <p>当然了，这只是概括的回答执行上下文栈的变化不同，为了更详细讲解两个函数执行上的区别，我们需要探究一下执行上下文到底包含了哪些内容，所以欢迎阅读下一篇<a href="/2019/03/23/variable/">《JavaScript之变量对象》</a></p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">1/25/2021, 5:57:59 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.066e837c.js" defer></script><script src="/assets/js/2.1dd62791.js" defer></script><script src="/assets/js/15.13ff4b4e.js" defer></script>
+  </body>
+</html>
